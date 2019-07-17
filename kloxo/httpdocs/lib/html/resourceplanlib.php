@@ -168,7 +168,6 @@ class resourceplan extends resourcecore
 		$gbl->__this_redirect = $ghtml->getFullUrl("goback=1&a=show&l[class]=resourceplan&l[nname]=$nname");
 		
 		return $param;
-
 	}
 
 	function updateOstemplateList($param)

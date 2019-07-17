@@ -47,6 +47,7 @@ static function add($parent, $class, $param)
 {
 	$param['client'] = $parent->nname;
 	$param['ddate'] = time();
+
 	return $param;
 }
 

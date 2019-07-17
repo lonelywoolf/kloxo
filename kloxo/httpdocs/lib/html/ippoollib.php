@@ -127,9 +127,11 @@ class ippool extends Lxdb
 
 		$first = strtil($param['firstip'], ".");
 		$last = strtil($param['lastip'], ".");
+
 		if ($first !== $last) {
 			throw new lxException($login->getThrow("first_and_last_should_be_same_network"), ''. "{$first} - {$last}");
 		}
+
 		return $param;
 	}
 

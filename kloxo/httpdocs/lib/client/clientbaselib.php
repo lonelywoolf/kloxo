@@ -149,6 +149,7 @@ class ClientBase extends ClientCore
 	{
 		$blist[] = array("a=update&sa=clientsendmessage");
 		$blist[] = array("a=delete&c=client");
+
 		return $blist;
 	}
 
@@ -528,6 +529,7 @@ class ClientBase extends ClientCore
 		$this->skeletonarchive = $key_file;
 		$this->__skeletion_tmp = $key_file_tmp;
 		$this->setUpdateSubaction('skeleton');
+
 		// Don't ever return the param. In the param the skeletonarchive is null and thus the value will be set to that.
 		//return $param;
 	}

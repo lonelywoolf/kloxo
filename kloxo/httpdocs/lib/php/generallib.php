@@ -262,6 +262,7 @@ class General extends Lxdb
 
 			ftp_pasv($fn, true);
 		}
+
 		return $param;
 	}
 

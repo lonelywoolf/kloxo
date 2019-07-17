@@ -78,7 +78,9 @@ function add_admin($pass)
 	$notif = new Notification(null, null, $client->getClName());
 	$notif->initThisDef();
 	$notif->dbaction = 'add';
-	$notif->text_newaccountmessage = lfile_get_contents("__path_program_root/file/welcome.txt");
+//	$notif->text_newaccountmessage = lfile_get_contents("__path_program_root/file/welcome.txt");
+	// MR -- use .tpl model (php parse)
+	$notif->text_newaccountmessage = lfile_get_contents(getLinkCustomfile("__path_program_root/file", "welcome.txt.tpl"));
 	$notif->parent_clname = $client->getClName();
 	$notif->write();
 

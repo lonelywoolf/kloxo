@@ -697,6 +697,7 @@ abstract class ClientCore extends Resourcecore
 	final function updatepserver_s($param)
 	{
 		$this->fixpserver_list($param);
+
 		return $param;
 	}
 

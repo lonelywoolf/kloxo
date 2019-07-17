@@ -78,21 +78,21 @@ class ndskshortcut extends lxdb
 			$separatorid = getIncrementedValueFromTable('ndskshortcut', 'separatorid');
 			$param['separatorid'] = $separatorid;
 			$param['nname'] = "{$separatorid}___{$parent->getClName()}";
-			return $param;
+		} else {
+
+			$url = base64_decode($param['url']);
+
+			if (isset($param['external']) && isOn($param['external'])) {
+				$url = $param['url'];
+				$param['url'] = base64_encode($param['url']);
+			}
+
+			if (trim($url) == '' || !isset($url)) {
+				throw new lxException($login->getThrow('url_is_not_defined'));
+			}
+
+			$param['nname'] = "{$param['url']}___{$parent->getClName()}";
 		}
-
-		$url = base64_decode($param['url']);
-
-		if (isset($param['external']) && isOn($param['external'])) {
-			$url = $param['url'];
-			$param['url'] = base64_encode($param['url']);
-		}
-
-		if (trim($url) == '' || !isset($url)) {
-			throw new lxException($login->getThrow('url_is_not_defined'));
-		}
-
-		$param['nname'] = "{$param['url']}___{$parent->getClName()}";
 
 		return $param;
 	}

@@ -54,6 +54,7 @@ class Domaintemplate extends DomainBase
 	static function add($parent, $class, $param)
 	{
 		Client::fixpserver_list($param);
+
 		return $param;
 	}
 

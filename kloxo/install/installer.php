@@ -219,7 +219,9 @@ function install_dns()
 	system("yum -y install bind bind-utils");
 
 	if (!file_exists("/var/log/named")) {
-		@exec("mkdir -p /var/log/named; chown named:root /var/log/named");
+		@exec("mkdir -p /var/log/named; chown named:root /var/log/named; chmod 1777 /var/log/named");
+	} else {
+		@exec("chown named:root /var/log/named; chmod 1777 /var/log/named");
 	}
 
 	if (file_exists("/etc/rndc.conf")) {
@@ -332,6 +334,7 @@ function kloxo_install_step1()
 	}
 
 	print(">>> Adding certain components (like curl/contabs/rkhunter) <<<\n");
+/*
 	// MR -- xcache, zend, ioncube, suhosin and zts not default install
 	// install curl-devel (need by php-common) will be install curl-devel in CentOS 5 and libcurl-devel in CentOS 6
 	$packages = array("tnef", "which", "gcc", "cpp", "gcc-c++", "zip", "unzip", "curl-devel", "libcurl-devel", "autoconf",
@@ -343,6 +346,8 @@ function kloxo_install_step1()
 	$list = implode(" ", $packages);
 
 	system("yum -y install $list; rkhunter --update");
+*/
+	system("sh /script/rkhunter-installer");
 
 	print(">>> Adding MalDetect <<<\n");
 
@@ -739,16 +744,18 @@ function addLineIfNotExist($filename, $pattern, $comment)
 // MR -- taken from lib.php
 function getPhpBranch()
 {
-	$a = array('php', 'php52', 'php53', 'php53u', 'php54', 'php55u', 'php56u',
-		'php52w', 'php53w', 'php54w', 'php55w', 'php56w');
+//	$a = array('php', 'php52', 'php53', 'php53u', 'php54', 'php55u', 'php56u',
+//		'php52w', 'php53w', 'php54w', 'php55w', 'php56w');
 
+	$a = explode(",", file_get_contents('/usr/local/lxlabs/kloxo/etc/list/set.php.lst'));
+	
 	foreach ($a as &$e) {
 		if (isRpmInstalled("{$e}-cli")) {
 			return $e;
 		}
 	}
 
-	return 'php';
+	return 'php56u';
 }
 
 // MR -- taken from lib.php

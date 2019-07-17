@@ -27,12 +27,12 @@ errors_to_browser=false
 ;; Handler for php-scripts
 x-httpd-php="php:/usr/bin/php-cgi"
 <?php
-		foreach($phpmlist as $k => $v) {
-			$w = str_replace('m', '', $v);
+foreach($phpmlist as $k => $v) {
+	$w = str_replace('m', '', $v);
 ?>
 x-httpd-<?=$w;?>="php:/usr/bin/<?=$v;?>-cgi"
 <?php
-		}
+}
 ?>
 
 ;; Handler for CGI-scripts

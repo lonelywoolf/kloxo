@@ -27,7 +27,6 @@ pureftpwho=/usr/sbin/pure-ftpwho
 pure_config=/etc/pure-ftpd/pure-ftpd.conf
 pure_launch_script=/usr/sbin/pure-config.pl
 
-
 start() {
 	echo -n $"Starting $prog: "
 	daemon "$pure_launch_script $pure_config --daemonize > /dev/null"

@@ -1,10 +1,8 @@
 <?php
 	ini_set("display_errors","1");
 
-	try {
-		session_start();
-	} catch(Exception $e) {
-		exec("'rm' -f /usr/local/lxlabs/kloxo/session/*");
+//	if(!isset($_SESSION)) {
+	if (session_id() == "") {
 		session_start();
 	}
 

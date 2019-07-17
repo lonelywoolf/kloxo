@@ -1,5 +1,11 @@
 #!/bin/sh
 
+pfile="/usr/local/lxlabs/kloxo/etc/process/mysql"
+
+if [ -f $pfile ] ; then
+	rm -f "${pfile}"*
+fi
+
 if [ -f /script/custom.restart-list.inc ] ; then
 	. /script/custom.restart-list.inc
 else

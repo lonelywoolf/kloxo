@@ -2306,11 +2306,13 @@ function initProgramlib($ctype = null)
 
 	$progname = $sgbl->__var_program_name;
 	lfile_put_contents($sgbl->__var_error_file, "");
-	set_exception_handler("lx_exception_handler");
-	//xdebug_disable();
-	set_error_handler("lx_error_handler");
+	// MR -- disable because trouble in php7
+//	set_exception_handler("lx_exception_handler");
+//	xdebug_disable();
+	// MR -- disable because trouble in php7
+//	set_error_handler("lx_error_handler");
 
-	//setcookie("XDEBUG_SESSION", "sess");
+//	setcookie("XDEBUG_SESSION", "sess");
 
 	if ($var >= 2) {
 		dprint("initProgramlib called twice \n <br> ");

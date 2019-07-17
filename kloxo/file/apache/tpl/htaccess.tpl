@@ -13,13 +13,13 @@
 #<FilesMatch \.php$>
 	#SetHandler x-httpd-php
 <?php
-		foreach($phpmlist as $k => $v) {
-			$v = str_replace('m', '', $v);
+foreach($phpmlist as $k => $v) {
+	$v = str_replace('m', '', $v);
 ?>
 	#SetHandler x-httpd-<?=$v;?>
 
 <?php
-		}
+}
 ?>
 #</FilesMatch>
 
@@ -35,11 +35,11 @@
 #</FilesMatch>
 #FCGIWrapper /usr/bin/php-cgi .php
 <?php
-		foreach($phpmlist as $k => $v) {
+foreach($phpmlist as $k => $v) {
 ?>
 #FCGIWrapper /usr/bin/<?=$v;?>-cgi .php
 <?php
-		}
+}
 ?>
 
 ### end content - please not remove this line

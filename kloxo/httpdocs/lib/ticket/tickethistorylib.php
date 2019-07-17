@@ -223,7 +223,7 @@ class TicketHistory extends Lxdb
 	static function add($parent, $class, $param)
 	{
 		global $gbl, $sgbl, $login, $ghtml;
-		
+
 		$parent->history_num += 1;
 		$param['nname'] = $parent->nname . "___" . $parent->history_num;
 

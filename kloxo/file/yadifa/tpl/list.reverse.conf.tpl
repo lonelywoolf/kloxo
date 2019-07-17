@@ -1,10 +1,13 @@
 <?php
-	exec("echo '' > /opt/configs/yadifa/conf/defaults/yadifa.reverse.conf");
+	$ypath = "/opt/configs/yadifa/conf/defaults";
+
+	exec("echo '' > {$ypath}/yadifa.reverse.conf");
 
 	$d1names = $arpas;
 
 	// MR -- use nsd data because the same structure
 	$tpath = "/opt/configs/nsd/conf/reverse";
+
 	$d2files = glob("{$tpath}/*");
 
 	if (empty($d2files)) { return; }
@@ -36,7 +39,7 @@
 		$str .= $zone;
 	}
 
-	$file = "/opt/configs/yadifa/conf/defaults/yadifa.reverse.conf";
+	$file = "{$ypath}/yadifa.reverse.conf";
 
 	file_put_contents($file, $str);
 

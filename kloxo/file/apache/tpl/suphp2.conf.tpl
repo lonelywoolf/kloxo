@@ -7,13 +7,13 @@
 suPHP_Engine On
 
 <?php
-		foreach($phpmlist as $k => $v) {
-			$w = str_replace('m', '', $v);
+foreach($phpmlist as $k => $v) {
+	$w = str_replace('m', '', $v);
 ?>
 suPHP_AddHandler x-httpd-<?=$w;?>
 
 <?php
-		}
+}
 ?>
 suPHP_AddHandler x-suphp-cgi
 

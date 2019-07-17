@@ -59,8 +59,10 @@ class coreFfile
 
 		dprint("$rpath $root\n");
 		
-		if (!csb($rpath, $root)) {
-			throw new lxException($login->getThrow("trying_to_go_outside_root"), '', $rpath);
+		if (!$login->isAdmin()) {
+			if (!csb($rpath, $root)) {
+				throw new lxException($login->getThrow("trying_to_go_outside_root"), '', $rpath);
+			}
 		}
 	}
 

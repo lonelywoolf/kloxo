@@ -6,7 +6,7 @@ if (file_exists($altconf)) {
 	return;
 }
 ?>
-### begin - web of '<?= $domainname; ?>' - do not remove/modify this line
+### begin - web of '<?=$domainname;?>' - do not remove/modify this line
 
 <?php
 
@@ -150,7 +150,11 @@ if ($general_header) {
 		$general_header_text = "<IfModule mod_headers.c>\n";
 
 		foreach ($gh as $k => $v) {
-			$general_header_text .= "\t\tHeader always set {$v}\n";
+			if (stripos($v, 'x-powered-by') !== false) {
+				// no action
+			} else {
+				$general_header_text .= "\t\tHeader always set {$v}\n";
+			}
 		}
 
 		$general_header_text .= "\t\tHeader always set X-Supported-By \"Kloxo-MR 7.0\"\n" .
@@ -386,18 +390,19 @@ foreach ($certnamelist as $ip => $certname) {
 			ProxyErrorOverride On
 			ProxyPass /error !
 			ErrorDocument 500 /error/500.html
-			<FilesMatch \.php$>
-				SetHandler "proxy:unix:/opt/configs/php-fpm/sock/<?=$phpselected;?>-apache.sock|fcgi://localhost"
-			</FilesMatch>
-			<Proxy "fcgi://localhost">
+			<Proxy "unix:/opt/configs/php-fpm/sock/<?=$phpselected;?>-apache.sock|fcgi://localhost">
 				ProxySet timeout=<?=$timeout;?>
 
 				ProxySet connectiontimeout=<?=$timeout;?>
 
-				#ProxySet enablereuse=on
+				# need disablereuse=on for 'ondemand'
+				ProxySet disablereuse=on
 				ProxySet max=25
 				ProxySet retry=0
 			</Proxy>
+			<FilesMatch \.php$>
+				SetHandler proxy:fcgi://localhost
+			</FilesMatch>
 		</IfModule>
 	</IfVersion>
 
@@ -542,18 +547,19 @@ foreach ($certnamelist as $ip => $certname) {
 			ProxyErrorOverride On
 			ProxyPass /error !
 			ErrorDocument 500 /error/500.html
-			<FilesMatch \.php$>
-				SetHandler "proxy:unix:/opt/configs/php-fpm/sock/<?=$phpselected;?>-apache.sock|fcgi://localhost"
-			</FilesMatch>
-			<Proxy "fcgi://localhost">
+			<Proxy "unix:/opt/configs/php-fpm/sock/<?=$phpselected;?>-apache.sock|fcgi://localhost">
 				ProxySet timeout=<?=$timeout;?>
 
 				ProxySet connectiontimeout=<?=$timeout;?>
 
-				#ProxySet enablereuse=on
+				# need disablereuse=on for 'ondemand'
+				ProxySet disablereuse=on
 				ProxySet max=25
 				ProxySet retry=0
 			</Proxy>
+			<FilesMatch \.php$>
+				SetHandler proxy:fcgi://localhost
+			</FilesMatch>
 		</IfModule>
 	</IfVersion>
 <?php
@@ -842,18 +848,19 @@ foreach ($certnamelist as $ip => $certname) {
 			ProxyErrorOverride On
 			ProxyPass /error !
 			ErrorDocument 500 /error/500.html
-			<FilesMatch \.php$>
-				SetHandler "proxy:unix:/opt/configs/php-fpm/sock/<?=$phpselected;?> -apache.sock|fcgi://localhost"
-			</FilesMatch>
-			<Proxy "fcgi://localhost">
+			<Proxy "unix:/opt/configs/php-fpm/sock/<?=$phpselected;?>-apache.sock|fcgi://localhost">
 				ProxySet timeout=<?=$timeout;?>
 
 				ProxySet connectiontimeout=<?=$timeout;?>
 
-				#ProxySet enablereuse=on
+				# need disablereuse=on for 'ondemand'
+				ProxySet disablereuse=on
 				ProxySet max=25
 				ProxySet retry=0
 			</Proxy>
+			<FilesMatch \.php$>
+				SetHandler proxy:fcgi://localhost
+			</FilesMatch>
 		</IfModule>
 	</IfVersion>
 
@@ -1104,18 +1111,19 @@ foreach ($certnamelist as $ip => $certname) {
 			ProxyErrorOverride On
 			ProxyPass /error !
 			ErrorDocument 500 /error/500.html
-			<FilesMatch \.php$>
-				SetHandler "proxy:unix:/opt/configs/php-fpm/sock/<?=$phpselected;?>-<?=$sockuser;?>.sock|fcgi://localhost"
-			</FilesMatch>
-			<Proxy "fcgi://localhost">
+			<Proxy "unix:/opt/configs/php-fpm/sock/<?=$phpselected;?>-<?=$sockuser;?>.sock|fcgi://localhost">
 				ProxySet timeout=<?=$timeout;?>
 
 				ProxySet connectiontimeout=<?=$timeout;?>
 
-				#ProxySet enablereuse=on
+				# need disablereuse=on for 'ondemand'
+				ProxySet disablereuse=on
 				ProxySet max=25
 				ProxySet retry=0
 			</Proxy>
+			<FilesMatch \.php$>
+				SetHandler proxy:fcgi://localhost
+			</FilesMatch>
 		</IfModule>
 	</IfVersion>
 <?php
@@ -1462,18 +1470,19 @@ foreach ($certnamelist as $ip => $certname) {
 			ProxyErrorOverride On
 			ProxyPass /error !
 			ErrorDocument 500 /error/500.html
-			<FilesMatch \.php$>
-				SetHandler "proxy:unix:/opt/configs/php-fpm/sock/<?=$phpselected;?>-apache.sock|fcgi://localhost"
-			</FilesMatch>
-			<Proxy "fcgi://localhost">
+			<Proxy "unix:/opt/configs/php-fpm/sock/<?=$phpselected;?>-apache.sock|fcgi://localhost">
 				ProxySet timeout=<?=$timeout;?>
 
 				ProxySet connectiontimeout=<?=$timeout;?>
 
-				#ProxySet enablereuse=on
+				# need disablereuse=on for 'ondemand'
+				ProxySet disablereuse=on
 				ProxySet max=25
 				ProxySet retry=0
 			</Proxy>
+			<FilesMatch \.php$>
+				SetHandler proxy:fcgi://localhost
+			</FilesMatch>
 		</IfModule>
 	</IfVersion>
 
@@ -1646,18 +1655,19 @@ foreach ($certnamelist as $ip => $certname) {
 			ProxyErrorOverride On
 			ProxyPass /error !
 			ErrorDocument 500 /error/500.html
-			<FilesMatch \.php$>
-				SetHandler "proxy:unix:/opt/configs/php-fpm/sock/<?=$phpselected;?>-apache.sock|fcgi://localhost"
-			</FilesMatch>
-			<Proxy "fcgi://localhost">
+			<Proxy "unix:/opt/configs/php-fpm/sock/<?=$phpselected;?>-apache.sock|fcgi://localhost">
 				ProxySet timeout=<?=$timeout;?>
 
 				ProxySet connectiontimeout=<?=$timeout;?>
 
-				#ProxySet enablereuse=on
+				# need disablereuse=on for 'ondemand'
+				ProxySet disablereuse=on
 				ProxySet max=25
 				ProxySet retry=0
 			</Proxy>
+			<FilesMatch \.php$>
+				SetHandler proxy:fcgi://localhost
+			</FilesMatch>
 		</IfModule>
 	</IfVersion>
 

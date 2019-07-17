@@ -189,15 +189,7 @@ kloxo_install_step1() {
 
 	echo ">>> Add certain components (like curl/contabs/rkhunter) <<<"
 
-	## MR -- install curl-devel (need by php-common) will be install curl-devel
-	## in CentOS 5 and libcurl-devel in CentOS 6
-	yum -y install tnef which gcc cpp gcc-c++ zip unzip curl-devel libcurl-devel autoconf \
-		 automake make libtool openssl-devel pure-ftpd yum-protectbase \
-		 yum-plugin-replace crontabs make glibc-static net-snmp tmpwatch \
-		 rkhunter quota xinetd screen telnet ncdu sysstat net-tools \
-		 xz xz-libs p7zip p7zip-plugins rar unrar lxjailshell --skip-broken
-
-	rkhunter --update
+	sh /script/rkhunter-installer
 
 	echo ">>> Add Standard PHP components and Hiawatha <<<"
 	## MR -- xcache, zend, ioncube, suhosin and zts not default install
@@ -371,7 +363,7 @@ kloxo_install_before_bye() {
 
 kloxo_install_bye() {
 	## MR -- use '-i' instead '-I' because not exists in CentOS 5
-	this_ip=$(hostname -i|awk '{print $1}')
+	this_ip=$(ip route get 1 | sed -n 's/^.*src \([0-9.]*\) .*$/\1/p')
 	len=${#this_ip}
 
 	https_spc=""
@@ -415,7 +407,7 @@ kloxo_install_bye() {
 		echo "._/ - Need running 'sh /script/cleanup' for update                           _/."
 	fi
 
-		echo "._/ - Run 'sh /script/mysql-convert --engine=myisam' to minimize MySQLcccc   _/."
+		echo "._/ - Run 'sh /script/mysql-convert --engine=myisam' to minimize MySQL       _/."
 		echo "._/   memory usage. Or, go to 'admin->Webserver Configure'                   _/."
 		echo "._/ - Run 'sh /script/make-slave' for change to 'SLAVE'                      _/."
 
@@ -445,7 +437,7 @@ lxins_main() {
 	## MR -- to make sure /tmp ready for all; found mysql not able to start if not 1777
 	chmod 1777 /tmp
 
-	sh /script/set-limits
+	sh /script/fix-limits
 
 	install_yum_repo
 

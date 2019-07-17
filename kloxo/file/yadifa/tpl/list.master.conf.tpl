@@ -1,10 +1,13 @@
 <?php
-	exec("echo '' > /opt/configs/yadifa/conf/defaults/yadifa.master.conf");
+	$ypath = "/opt/configs/yadifa/conf/defaults";
+
+	exec("echo '' > {$ypath}/yadifa.master.conf");
 
 	$d1names = $domains;
 
 	// MR -- use nsd data because the same structure
 	$tpath = "/opt/configs/nsd/conf/master";
+
 	$d2files = glob("{$tpath}/*");
 
 	if (empty($d2files)) { return; }
@@ -36,6 +39,6 @@
 		$str .= $zone;
 	}
 
-	$file = "/opt/configs/yadifa/conf/defaults/yadifa.master.conf";
+	$file = "{$ypath}/yadifa.master.conf";
 
 	file_put_contents($file, $str);
